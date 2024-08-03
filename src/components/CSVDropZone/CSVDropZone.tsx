@@ -2,31 +2,22 @@ import { Group, Text, rem } from '@mantine/core';
 import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react';
 import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
 import { useUpload } from '../ControleFinanceiro/UploadContext';
-
+import { parseCSV } from './csvUtils';
 export function CSVDropZone() {
-  const { isUploaded, setIsUploaded } = useUpload();
+  const { setIsUploaded } = useUpload();
   const onDropFunction = (files: File[]) => {
     if (files.length === 0 || !files) console.error('No files uploaded');
     setIsUploaded(true);
     files.forEach(async (file) => {
       const fileData = await file.text();
+      const categoryTotals = parseCSV(fileData);
       const fileObject = {
         name: file.name,
         size: file.size,
         data: fileData,
+        categoryTotals: categoryTotals,
       };
       console.log(fileObject);
-
-      const categoryTotals: Record<string, number> = {};
-      fileObject.data.split('\n').forEach((line) => {
-        const columns = line.split(',');
-        const category = columns[1];
-        const amount = columns[3];
-        if (category && amount) {
-          categoryTotals[category] = (categoryTotals[category] || 0) + Number(amount);
-        }
-      });
-      console.log(categoryTotals);
     });
   };
   return (
