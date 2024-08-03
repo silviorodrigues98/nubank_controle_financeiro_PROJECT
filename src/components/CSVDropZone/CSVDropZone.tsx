@@ -1,14 +1,16 @@
 import { Group, Text, rem } from '@mantine/core';
 import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react';
-import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
+import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
 import { useUpload } from '../ControleFinanceiro/UploadContext';
 import { parseCSV } from './csvUtils';
+import { useFile } from './FileContext';
+
 export function CSVDropZone() {
   const { setIsUploaded } = useUpload();
-  const onDropFunction = (files: File[]) => {
-    if (files.length === 0 || !files) console.error('No files uploaded');
+  const { setFileObject } = useFile();
+  const handleFileUpload = (files: FileWithPath[]) => {
     setIsUploaded(true);
-    files.forEach(async (file) => {
+    Array.from(files).forEach(async (file) => {
       const fileData = await file.text();
       const categoryTotals = parseCSV(fileData);
       const fileObject = {
@@ -17,13 +19,15 @@ export function CSVDropZone() {
         data: fileData,
         categoryTotals: categoryTotals,
       };
+      setFileObject(fileObject);
       console.log(fileObject);
+      
     });
   };
   return (
     <>
       <Dropzone
-        onDrop={(files) => onDropFunction(files)}
+        onDrop={(files) => handleFileUpload(files as FileWithPath[])}
         onReject={(files) => console.log('rejected files', files)}
         maxSize={5 * 1024 ** 2}
         accept={[MIME_TYPES.csv]}
