@@ -6,8 +6,28 @@ import { useUpload } from '../ControleFinanceiro/UploadContext';
 export function CSVDropZone() {
   const { isUploaded, setIsUploaded } = useUpload();
   const onDropFunction = (files: File[]) => {
-    console.log('accepted files', files);
+    if (files.length === 0 || !files) console.error('No files uploaded');
     setIsUploaded(true);
+    files.forEach(async (file) => {
+      const fileData = await file.text();
+      const fileObject = {
+        name: file.name,
+        size: file.size,
+        data: fileData,
+      };
+      console.log(fileObject);
+
+      const categoryTotals: Record<string, number> = {};
+      fileObject.data.split('\n').forEach((line) => {
+        const columns = line.split(',');
+        const category = columns[1];
+        const amount = columns[3];
+        if (category && amount) {
+          categoryTotals[category] = (categoryTotals[category] || 0) + Number(amount);
+        }
+      });
+      console.log(categoryTotals);
+    });
   };
   return (
     <>
