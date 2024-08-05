@@ -8,5 +8,9 @@ export const parseCSV = (csvData: string): Record<string, number> => {
             categoryTotals[category] = (categoryTotals[category] || 0) + Number(amount);
         }
     });
-    return categoryTotals;
+      const formattedCategoryTotals = Object.keys(categoryTotals).reduce((acc, key) => {
+            acc[key] = Math.round(categoryTotals[key] * 100) / 100;
+            return acc;
+        }, {} as Record<string, number>);
+    return formattedCategoryTotals;
 };
