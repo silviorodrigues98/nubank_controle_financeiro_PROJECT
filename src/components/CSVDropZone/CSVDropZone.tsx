@@ -26,10 +26,11 @@ export function CSVDropZone() {
   return (
     <>
       <Dropzone
-        onDrop={(files) => handleFileUpload(files as FileWithPath[])}
+        onDrop={(files) => handleFileUpload(files.slice(0, 1) as FileWithPath[])}
         onReject={(files) => console.log('rejected files', files)}
-        maxSize={5 * 1024 ** 2}
+        maxSize={20 * 1024 ** 2}
         accept={[MIME_TYPES.csv]}
+        multiple={false}
       >
         <Group justify="center" gap="xl" mih={220} style={{ pointerEvents: 'none' }}>
           <Dropzone.Accept>
@@ -53,10 +54,10 @@ export function CSVDropZone() {
 
           <div>
             <Text size="xl" inline>
-              Araste e solte os arquivos aqui ou clique para selecionar
+              Araste e solte o arquivo aqui ou clique para selecionar
             </Text>
             <Text size="sm" c="dimmed" inline mt={7}>
-              Adicione os arquivos exportados, em formato CSV, cada um nao deve exceder 5mb
+              Adicione o arquivo exportado, em formato CSV, que não deve exceder 20mb
             </Text>
           </div>
         </Group>
