@@ -1,3 +1,18 @@
+## Sobre o Projeto
+
+Este projeto foi criado para uso pessoal, com o objetivo de organizar os gastos da fatura do Nubank de forma mais eficiente.
+
+### Como Usar
+
+1. Acesse o site do Nubank: https://app.nubank.com.br
+2. Exporte o CSV da sua fatura
+3. Carregue o arquivo CSV no nosso aplicativo: https://nubank-controle-financeiro-project.vercel.app/
+
+### Planos Futuros
+
+- Implementar suporte para carregamento de múltiplos arquivos CSV simultaneamente
+- Explorar a possibilidade de integração com a API do Nubank para buscar dados de forma dinâmica, eliminando a necessidade de importação manual do CSV
+
 ## Instalação
 
 1. Clone o repositório:
