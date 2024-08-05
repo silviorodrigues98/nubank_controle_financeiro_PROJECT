@@ -3,35 +3,51 @@ import { DonutChart } from '@mantine/charts';
 import { CSVDropZone } from '../CSVDropZone/CSVDropZone';
 import { useUpload } from './UploadContext';
 import { useFile } from '../CSVDropZone/FileContext';
+import { useEffect, useState } from 'react';
 
 export function ControleFinanceiro() {
-  const mockData = [
-    { name: 'USA', value: 400, color: 'indigo.6' },
-    { name: 'India', value: 300, color: 'yellow.6' },
-    { name: 'Japan', value: 300, color: 'teal.6' },
-    { name: 'Other', value: 200, color: 'gray.6' },
-  ];
-
   const { isUploaded } = useUpload();
   const { fileObject } = useFile();
-  console.log(fileObject);
+  const [graphData, setGraphData] = useState<{ name: string; value: number; color: string }[]>([]);
+  const graphColors = ['indigo.6', 'red.5', 'blue.4', 'yellow.3', 'orange.2', 'green.1'];
+  useEffect(() => {
+    if (fileObject) {
+      const categories = fileObject.categoryTotals;
+      const newGraphData = Object.keys(categories)
+        .map((category, index) => {
+          const value = categories[category];
+          if (value >= 0) {
+            return {
+              name: category.toUpperCase(),
+              value: value,
+              color: graphColors[index % graphColors.length],
+            };
+          }
+          return null;
+        })
+        .filter((data) => data !== null) as { name: string; value: number; color: string }[];
+      setGraphData(newGraphData);
+    }
+  }, [fileObject]);
 
   const chartProps = {
-    data: mockData,
-    withTooltip: false,
-    withLabelsLine: true,
-    withLabels: true,
-    paddingAngle: 10,
-    size: 500,
+    data: graphData,
+    withTooltip: true,
+    withLabelsLine: false,
+    withLabels: false,
+    tooltipDataSource: 'segment' as const,
+    mx: 'auto',
+    paddingAngle: 1,
+    size: 350,
     style: { width: 1000, height: 500 },
   };
+
   return (
     <>
       <div className="center">
         <h1>Controle Financeiro</h1>
         {!isUploaded && <CSVDropZone />}
-        {isUploaded && <DonutChart {...chartProps} />}
-        <h2>After</h2>
+        {isUploaded && graphData.length > 0 && <DonutChart {...chartProps} />}
       </div>
     </>
   );

@@ -21,7 +21,6 @@ export function CSVDropZone() {
       };
       setFileObject(fileObject);
       console.log(fileObject);
-      
     });
   };
   return (
