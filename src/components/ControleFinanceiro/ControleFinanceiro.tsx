@@ -34,13 +34,28 @@ export function ControleFinanceiro() {
     data: graphData,
     withTooltip: true,
     withLabelsLine: false,
-    withLabels: false,
+    withLabels: true,
     tooltipDataSource: 'segment' as const,
     mx: 'auto',
     paddingAngle: 1,
-    size: 350,
-    style: { width: 1000, height: 500 },
+    size: 500,
+    style: { width: 750, height: 750 },
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const tooltip = document.querySelector('.mantine-charts-tooltip') as HTMLElement;
+      if (tooltip) {
+        tooltip.style.position = 'fixed';
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <>
