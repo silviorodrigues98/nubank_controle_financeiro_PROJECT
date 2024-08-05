@@ -1,34 +1,47 @@
-# Mantine Vite template
+## Instalação
 
-## Features
+1. Clone o repositório:
+    ```sh
+   https://github.com/silviorodrigues98/nubank_controle_financeiro_PROJECT
+    ```
 
-This template comes with the following features:
+2. Instale as dependências:
+    ```sh
+    cd controle-financeiro
+    yarn install
+    ```
 
-- [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
-- [TypeScript](https://www.typescriptlang.org/)
+3. Inicie o servidor de desenvolvimento:
+    ```sh
+    yarn dev
+    ```
+
+## Scripts
+
+- `dev` – Inicia o servidor de desenvolvimento
+- `build` – Cria a versão de produção do aplicativo
+- `preview` – Visualiza localmente a versão de produção
+- `typecheck` – Verifica os tipos TypeScript
+- `lint` – Executa o ESLint
+- `prettier:check` – Verifica os arquivos com o Prettier
+- `vitest` – Executa os testes Vitest
+- `vitest:watch` – Inicia o Vitest no modo de observação
+- `test` – Executa os scripts `vitest`, `prettier:check`, `lint` e `typecheck`
+- `storybook` – Inicia o servidor de desenvolvimento do Storybook
+- `storybook:build` – Cria o pacote de produção do Storybook
+- `prettier:write` – Formata todos os arquivos com o Prettier
+
+## Tecnologias Utilizadas
+
+- [React](https://reactjs.org/)
+- [Mantine](https://mantine.dev/)
+- [Vite](https://vitejs.dev/)
+- [Vitest](https://vitest.dev/)
 - [Storybook](https://storybook.js.org/)
-- [Vitest](https://vitest.dev/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-- ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [PostCSS](https://postcss.org/)
 
-## npm scripts
+## Licença
 
-## Build and dev scripts
-
-- `dev` – start development server
-- `build` – build production version of the app
-- `preview` – locally preview production build
-
-### Testing scripts
-
-- `typecheck` – checks TypeScript types
-- `lint` – runs ESLint
-- `prettier:check` – checks files with Prettier
-- `vitest` – runs vitest tests
-- `vitest:watch` – starts vitest watch
-- `test` – runs `vitest`, `prettier:check`, `lint` and `typecheck` scripts
-
-### Other scripts
-
-- `storybook` – starts storybook dev server
-- `storybook:build` – build production storybook bundle to `storybook-static`
-- `prettier:write` – formats all files with Prettier
+Este projeto está licenciado sob a Licença MIT.
