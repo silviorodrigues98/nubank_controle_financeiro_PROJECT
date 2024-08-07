@@ -38,7 +38,7 @@ export function ControleFinanceiro() {
     tooltipDataSource: 'segment' as const,
     mx: 'auto',
     paddingAngle: 1,
-    size: 500,
+    size: 350,
     style: { width: 750, height: 750 },
   };
 
